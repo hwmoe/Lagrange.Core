@@ -22,7 +22,7 @@ public partial class ReplySegment : SegmentBase
 
     public override void Build(MessageBuilder builder, SegmentBase segment)
     {
-        if (segment is ReplySegment reply && Database is not null)
+        if (segment is ReplySegment reply)
         {
             //var messageRecord = Database.GetCollection<MessageRecord>().FindById(int.Parse(reply.MessageId));
             //reply.TargetChain ??= (MessageChain)messageRecord;
