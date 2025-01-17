@@ -20,20 +20,21 @@ public class GetMessageOperation(LiteDatabase database, MessageService service) 
     {
         if (payload.Deserialize<OneBotGetMessage>(SerializerOptions.DefaultOptions) is { } getMsg)
         {
-            var record = database.GetCollection<MessageRecord>().FindById(getMsg.MessageId);
-            var chain = (MessageChain)record;
+            //var record = database.GetCollection<MessageRecord>().FindById(getMsg.MessageId);
+            //var chain = (MessageChain)record;
 
-            OneBotSender sender = chain switch
-            {
-                { GroupMemberInfo: BotGroupMember g } => new(g.Uin, g.MemberName),
-                { FriendInfo: BotFriend f } => new(f.Uin, f.Nickname),
-                _ => new(chain.FriendUin, "")
-            };
+            //OneBotSender sender = chain switch
+            //{
+            //    { GroupMemberInfo: BotGroupMember g } => new(g.Uin, g.MemberName),
+            //    { FriendInfo: BotFriend f } => new(f.Uin, f.Nickname),
+            //    _ => new(chain.FriendUin, "")
+            //};
 
-            var elements = service.Convert(chain);
-            var response = new OneBotGetMessageResponse(chain.Time, chain.IsGroup ? "group" : "private", record.MessageHash, sender, elements);
+            //var elements = service.Convert(chain);
+            //var response = new OneBotGetMessageResponse(chain.Time, chain.IsGroup ? "group" : "private", record.MessageHash, sender, elements);
 
-            return Task.FromResult(new OneBotResult(response, 0, "ok"));
+            //return Task.FromResult(new OneBotResult(response, 0, "ok"));
+            return Task.FromResult(new OneBotResult(null, 0, "ok"));
         }
 
         throw new Exception();

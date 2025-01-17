@@ -19,19 +19,20 @@ public class GetFriendMessageHistoryOperation(LiteDatabase database, MessageServ
     {
         if (payload.Deserialize<OneBotFriendMsgHistory>(SerializerOptions.DefaultOptions) is { } history)
         {
-            var collection = database.GetCollection<MessageRecord>();
-            var record = history.MessageId == 0 
-                ? collection.Find(x => x.FriendUin == history.UserId).OrderByDescending(x => x.Time).First() 
-                : collection.FindById(history.MessageId);
-            var chain = (MessageChain)record;
+            //var collection = database.GetCollection<MessageRecord>();
+            //var record = history.MessageId == 0 
+            //    ? collection.Find(x => x.FriendUin == history.UserId).OrderByDescending(x => x.Time).First() 
+            //    : collection.FindById(history.MessageId);
+            //var chain = (MessageChain)record;
 
-            if (await context.GetRoamMessage(chain, history.Count) is { } results)
-            {
-                var messages = results
-                    .Select(x => message.ConvertToPrivateMsg(context.BotUin, x))
-                    .ToList();
-                return new OneBotResult(new OneBotFriendMsgHistoryResponse(messages), 0, "ok");
-            }
+            //if (await context.GetRoamMessage(chain, history.Count) is { } results)
+            //{
+            //    var messages = results
+            //        .Select(x => message.ConvertToPrivateMsg(context.BotUin, x))
+            //        .ToList();
+            //    return new OneBotResult(new OneBotFriendMsgHistoryResponse(messages), 0, "ok");
+            //}
+            return new OneBotResult(null, 0, "ok");
         }
         
         throw new Exception();

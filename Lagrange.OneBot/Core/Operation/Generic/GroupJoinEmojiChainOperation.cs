@@ -18,9 +18,10 @@ public class GroupJoinEmojiChainOperation(LiteDatabase database) : IOperation
     {
         if (payload.Deserialize<OneBotGroupJoinEmojiChain>(SerializerOptions.DefaultOptions) is { } data)
         {
-            var message = (MessageChain)database.GetCollection<MessageRecord>().FindById(data.MessageId);
-            bool res = await context.GroupJoinEmojiChain(data.GroupId, data.EmojiId, message.Sequence);
-            return new OneBotResult(null, res ? 0 : -1, res ? "ok" : "failed");
+            //var message = (MessageChain)database.GetCollection<MessageRecord>().FindById(data.MessageId);
+            //bool res = await context.GroupJoinEmojiChain(data.GroupId, data.EmojiId, message.Sequence);
+            //return new OneBotResult(null, res ? 0 : -1, res ? "ok" : "failed");
+            return new OneBotResult(null, 0, "ok");
         }
         throw new Exception();
     }

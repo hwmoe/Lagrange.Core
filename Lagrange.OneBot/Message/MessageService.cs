@@ -65,7 +65,7 @@ public sealed class MessageService
     private void OnFriendMessageReceived(BotContext bot, FriendMessageEvent e)
     {
         var record = (MessageRecord)e.Chain;
-        _context.GetCollection<MessageRecord>().Insert(new BsonValue(record.MessageHash), record);
+        //_context.GetCollection<MessageRecord>().Insert(new BsonValue(record.MessageHash), record);
 
         if (_config.GetValue<bool>("Message:IgnoreSelf") && e.Chain.FriendUin == bot.BotUin) return; // ignore self message
 
@@ -100,7 +100,7 @@ public sealed class MessageService
     private void OnGroupMessageReceived(BotContext bot, GroupMessageEvent e)
     {
         var record = (MessageRecord)e.Chain;
-        _context.GetCollection<MessageRecord>().Insert(new BsonValue(record.MessageHash), record);
+        //_context.GetCollection<MessageRecord>().Insert(new BsonValue(record.MessageHash), record);
         if (_config.GetValue<bool>("Message:IgnoreSelf") && e.Chain.FriendUin == bot.BotUin) return; // ignore self message
 
         var request = ConvertToGroupMsg(bot.BotUin, e.Chain);
@@ -121,7 +121,7 @@ public sealed class MessageService
     private void OnTempMessageReceived(BotContext bot, TempMessageEvent e)
     {
         var record = (MessageRecord)e.Chain;
-        _context.GetCollection<MessageRecord>().Insert(new BsonValue(record.MessageHash), record);
+        //_context.GetCollection<MessageRecord>().Insert(new BsonValue(record.MessageHash), record);
 
         var segments = Convert(e.Chain);
         var request = new OneBotPrivateMsg(bot.BotUin, new OneBotSender(e.Chain.FriendUin, e.Chain.FriendInfo?.Nickname ?? string.Empty), "group", ((DateTimeOffset)e.Chain.Time).ToUnixTimeSeconds())

@@ -19,19 +19,20 @@ public class GetGroupMessageHistoryOperation(LiteDatabase database, MessageServi
     {
         if (payload.Deserialize<OneBotGroupMsgHistory>(SerializerOptions.DefaultOptions) is { } history)
         {
-            var collection = database.GetCollection<MessageRecord>();
-            var record = history.MessageId == 0
-                ? collection.Find(x => x.GroupUin == history.GroupId).OrderByDescending(x => x.Time).First()
-                : collection.FindById(history.MessageId);
-            var chain = (MessageChain)record;
+            //var collection = database.GetCollection<MessageRecord>();
+            //var record = history.MessageId == 0
+            //    ? collection.Find(x => x.GroupUin == history.GroupId).OrderByDescending(x => x.Time).First()
+            //    : collection.FindById(history.MessageId);
+            //var chain = (MessageChain)record;
 
-            if (await context.GetGroupMessage(history.GroupId, (uint)(chain.Sequence - history.Count + 1), chain.Sequence) is { } results)
-            {
-                var messages = results
-                    .Select(x => message.ConvertToGroupMsg(context.BotUin, x))
-                    .ToList();
-                return new OneBotResult(new OneBotGroupMsgHistoryResponse(messages), 0, "ok");
-            }
+            //if (await context.GetGroupMessage(history.GroupId, (uint)(chain.Sequence - history.Count + 1), chain.Sequence) is { } results)
+            //{
+            //    var messages = results
+            //        .Select(x => message.ConvertToGroupMsg(context.BotUin, x))
+            //        .ToList();
+            //    return new OneBotResult(new OneBotGroupMsgHistoryResponse(messages), 0, "ok");
+            //}
+            return new OneBotResult(null, 0, "ok");
         }
 
         throw new Exception();

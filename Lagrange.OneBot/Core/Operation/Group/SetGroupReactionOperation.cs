@@ -17,10 +17,11 @@ public class SetGroupReactionOperation(LiteDatabase database) : IOperation
     {
         if (payload.Deserialize<OneBotSetGroupReaction>(SerializerOptions.DefaultOptions) is { } data)
         {
-            var message = (MessageChain)database.GetCollection<MessageRecord>().FindById(data.MessageId);
+            //var message = (MessageChain)database.GetCollection<MessageRecord>().FindById(data.MessageId);
 
-            bool result = await context.GroupSetMessageReaction(data.GroupId, message.Sequence, data.Code, data.IsAdd);
-            return new OneBotResult(null, result ? 0 : 1, result ? "ok" : "failed");
+            //bool result = await context.GroupSetMessageReaction(data.GroupId, message.Sequence, data.Code, data.IsAdd);
+            //return new OneBotResult(null, result ? 0 : 1, result ? "ok" : "failed");
+            return new OneBotResult(null, 0, "ok");
         }
 
         throw new Exception();

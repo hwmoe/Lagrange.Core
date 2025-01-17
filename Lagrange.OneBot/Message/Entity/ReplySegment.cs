@@ -24,14 +24,14 @@ public partial class ReplySegment : SegmentBase
     {
         if (segment is ReplySegment reply && Database is not null)
         {
-            var messageRecord = Database.GetCollection<MessageRecord>().FindById(int.Parse(reply.MessageId));
-            reply.TargetChain ??= (MessageChain)messageRecord;
+            //var messageRecord = Database.GetCollection<MessageRecord>().FindById(int.Parse(reply.MessageId));
+            //reply.TargetChain ??= (MessageChain)messageRecord;
 
-            var build = MessagePacker.Build(reply.TargetChain, "");
-            var virtualElem = build.Body?.RichText?.Elems;
-            if (virtualElem != null) reply.TargetChain.Elements.AddRange(virtualElem);
+            //var build = MessagePacker.Build(reply.TargetChain, "");
+            //var virtualElem = build.Body?.RichText?.Elems;
+            //if (virtualElem != null) reply.TargetChain.Elements.AddRange(virtualElem);
 
-            builder.Forward(reply.TargetChain);
+            //builder.Forward(reply.TargetChain);
         }
     }
 
@@ -39,12 +39,13 @@ public partial class ReplySegment : SegmentBase
     {
         if (entity is not ForwardEntity forward || Database is null) throw new ArgumentException("The entity is not a forward entity.");
 
-        var collection = Database.GetCollection<MessageRecord>();
+        //var collection = Database.GetCollection<MessageRecord>();
 
         int hash = MessageRecord.CalcMessageHash(forward.MessageId, forward.Sequence);
-        var query = collection.FindById(hash);
-        return query == null
-            ? new ReplySegment { MessageId = 0.ToString() }
-            : new ReplySegment { MessageId = query.MessageHash.ToString() };
+        //var query = collection.FindById(hash);
+        //return query == null
+        //    ? new ReplySegment { MessageId = 0.ToString() }
+        //    : new ReplySegment { MessageId = query.MessageHash.ToString() };
+        return new ReplySegment { MessageId = 0.ToString() };
     }
 }

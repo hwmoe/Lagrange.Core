@@ -147,19 +147,19 @@ public sealed class NotifyService(BotContext bot, ILogger<NotifyService> logger,
         {
             logger.LogInformation(@event.ToString());
 
-            var collection = database.GetCollection<MessageRecord>();
-            var record = collection.FindOne(Query.And(
-                Query.EQ("FriendUin", new BsonValue(@event.FriendUin)),
-                Query.EQ("ClientSequence", new BsonValue(@event.ClientSequence)),
-                Query.EQ("MessageId", new BsonValue(0x01000000L << 32 | @event.Random))
-            ));
+            //var collection = database.GetCollection<MessageRecord>();
+            //var record = collection.FindOne(Query.And(
+            //    Query.EQ("FriendUin", new BsonValue(@event.FriendUin)),
+            //    Query.EQ("ClientSequence", new BsonValue(@event.ClientSequence)),
+            //    Query.EQ("MessageId", new BsonValue(0x01000000L << 32 | @event.Random))
+            //));
 
-            await service.SendJsonAsync(new OneBotFriendRecall(bot.BotUin)
-            {
-                UserId = @event.FriendUin,
-                MessageId = MessageRecord.CalcMessageHash(@event.Random, record.Sequence),
-                Tip = @event.Tip
-            });
+            //await service.SendJsonAsync(new OneBotFriendRecall(bot.BotUin)
+            //{
+            //    UserId = @event.FriendUin,
+            //    MessageId = MessageRecord.CalcMessageHash(@event.Random, record.Sequence),
+            //    Tip = @event.Tip
+            //});
         };
 
         bot.Invoker.OnFriendPokeEvent += async (_, @event) =>
@@ -207,29 +207,29 @@ public sealed class NotifyService(BotContext bot, ILogger<NotifyService> logger,
         {
             logger.LogInformation(@event.ToString());
 
-            var record = database.GetCollection<MessageRecord>().FindOne(Query.And(
-                Query.EQ("GroupUin", new BsonValue(@event.TargetGroupUin)),
-                Query.EQ("Sequence", new BsonValue(@event.TargetSequence))
-            ));
+            //var record = database.GetCollection<MessageRecord>().FindOne(Query.And(
+            //    Query.EQ("GroupUin", new BsonValue(@event.TargetGroupUin)),
+            //    Query.EQ("Sequence", new BsonValue(@event.TargetSequence))
+            //));
 
-            if (record == null)
-            {
-                logger.LogInformation(
-                    "Unable to find the corresponding message using GroupUin: {} and Sequence: {}",
-                    @event.TargetGroupUin,
-                    @event.TargetSequence
-                );
-            }
+            //if (record == null)
+            //{
+            //    logger.LogInformation(
+            //        "Unable to find the corresponding message using GroupUin: {} and Sequence: {}",
+            //        @event.TargetGroupUin,
+            //        @event.TargetSequence
+            //    );
+            //}
 
-            await service.SendJsonAsync(new OneBotGroupReaction(
-                bot.BotUin,
-                @event.TargetGroupUin,
-                record?.MessageHash ?? 0,
-                @event.OperatorUin,
-                @event.IsAdd ? "add" : "remove",
-                @event.Code,
-                @event.Count
-            ));
+            //await service.SendJsonAsync(new OneBotGroupReaction(
+            //    bot.BotUin,
+            //    @event.TargetGroupUin,
+            //    record?.MessageHash ?? 0,
+            //    @event.OperatorUin,
+            //    @event.IsAdd ? "add" : "remove",
+            //    @event.Code,
+            //    @event.Count
+            //));
         };
 
         bot.Invoker.OnGroupNameChangeEvent += async (bot, @event) =>

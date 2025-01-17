@@ -81,62 +81,63 @@ public static class HostApplicationBuilderExtension
     public static HostApplicationBuilder ConfigureOneBot(this HostApplicationBuilder builder)
     {
         builder.Services.AddOptions()
-            .AddSingleton(services => // Database
-            {
-                var configuration = services.GetRequiredService<IConfiguration>();
-                var logger = services.GetRequiredService<ILogger<LiteDatabase>>();
+            //.AddSingleton(services => // Database
+            //{
+            //    var configuration = services.GetRequiredService<IConfiguration>();
+            //    var logger = services.GetRequiredService<ILogger<LiteDatabase>>();
 
-                BsonMapper.Global.TrimWhitespace = false;
-                BsonMapper.Global.EmptyStringToNull = false;
+            //    BsonMapper.Global.TrimWhitespace = false;
+            //    BsonMapper.Global.EmptyStringToNull = false;
 
-                // Specify ctor for some classes
-                BsonMapper.Global.RegisterType(
-                    LiteDbUtility.IMessageEntitySerialize,
-                    LiteDbUtility.IMessageEntityDeserialize
-                );
+            //    Specify ctor for some classes
 
-                string path = configuration["ConfigPath:Database"] ?? $"lagrange-{configuration["Account:Uin"]}.db";
+            //   BsonMapper.Global.RegisterType(
+            //       LiteDbUtility.IMessageEntitySerialize,
+            //       LiteDbUtility.IMessageEntityDeserialize
+            //   );
 
-                bool isFirstCreate = false;
-                if (!File.Exists(path)) isFirstCreate = true;
+            //   string path = configuration["ConfigPath:Database"] ?? $"lagrange-{configuration["Account:Uin"]}.db";
 
-                var db = new LiteDatabase(path)
-                {
-                    CheckpointSize = 50
-                };
+            //    bool isFirstCreate = false;
+            //    if (!File.Exists(path)) isFirstCreate = true;
 
-                string[] expressions = ["$.Sequence", "$.MessageId", "$.FriendUin", "$.GroupUin"];
+            //    var db = new LiteDatabase(path)
+            //    {
+            //        CheckpointSize = 50
+            //    };
 
-                bool hasFirstIndex = false;
-                var indexes = db.GetCollection("$indexes");
-                foreach (var expression in expressions)
-                {
-                    if (indexes.Exists(Query.EQ("expression", expression))) continue;
+            //    string[] expressions = ["$.Sequence", "$.MessageId", "$.FriendUin", "$.GroupUin"];
 
-                    logger.LogWarning("In the database index");
-                    logger.LogWarning("Depending on the size of the database will consume some time and memory");
-                    logger.LogWarning("Not yet finished, please wait...");
+            //    bool hasFirstIndex = false;
+            //    var indexes = db.GetCollection("$indexes");
+            //    foreach (var expression in expressions)
+            //    {
+            //        if (indexes.Exists(Query.EQ("expression", expression))) continue;
 
-                    hasFirstIndex = true;
-                    break;
-                }
+            //        logger.LogWarning("In the database index");
+            //        logger.LogWarning("Depending on the size of the database will consume some time and memory");
+            //        logger.LogWarning("Not yet finished, please wait...");
 
-                var records = db.GetCollection<MessageRecord>();
-                foreach (var expression in expressions)
-                {
-                    records.EnsureIndex(BsonExpression.Create(expression));
-                }
+            //        hasFirstIndex = true;
+            //        break;
+            //    }
 
-                // Skipping the first database creation is a restart after indexing
-                if (!isFirstCreate && hasFirstIndex)
-                {
-                    db.Dispose(); // Ensure that the database is written correctly
-                    logger.LogInformation("Indexing Complete! Press any key to close and restart the program manually!");
-                    Console.ReadKey(true);
-                    Environment.Exit(0);
-                }
-                return db;
-            })
+            //    var records = db.GetCollection<MessageRecord>();
+            //    foreach (var expression in expressions)
+            //    {
+            //        records.EnsureIndex(BsonExpression.Create(expression));
+            //    }
+
+            //    Skipping the first database creation is a restart after indexing
+            //    if (!isFirstCreate && hasFirstIndex)
+            //    {
+            //        db.Dispose(); // Ensure that the database is written correctly
+            //        logger.LogInformation("Indexing Complete! Press any key to close and restart the program manually!");
+            //        Console.ReadKey(true);
+            //        Environment.Exit(0);
+            //    }
+            //    return db;
+            //})
 
             // // OneBot Netword Service
             .AddSingleton<LagrangeWebSvcCollection>()

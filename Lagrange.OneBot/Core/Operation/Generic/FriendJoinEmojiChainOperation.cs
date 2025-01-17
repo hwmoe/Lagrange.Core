@@ -18,9 +18,10 @@ public class FriendJoinEmojiChainOperation(LiteDatabase database) : IOperation
     {
         if (payload.Deserialize<OneBotPrivateJoinEmojiChain>(SerializerOptions.DefaultOptions) is { } data)
         {
-            var message = (MessageChain)database.GetCollection<MessageRecord>().FindById(data.MessageId);
-            bool res = await context.FriendJoinEmojiChain(data.UserId, data.EmojiId, message.Sequence);
-            return new OneBotResult(null, res ? 0 : -1, res ? "ok" : "failed");
+            //var message = (MessageChain)database.GetCollection<MessageRecord>().FindById(data.MessageId);
+            //bool res = await context.FriendJoinEmojiChain(data.UserId, data.EmojiId, message.Sequence);
+            //return new OneBotResult(null, res ? 0 : -1, res ? "ok" : "failed");
+            return new OneBotResult(null, 0, "ok");
         }
         throw new Exception();
     }

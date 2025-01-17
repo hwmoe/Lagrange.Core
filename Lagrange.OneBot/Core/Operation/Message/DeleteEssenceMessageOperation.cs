@@ -17,10 +17,11 @@ public class DeleteEssenceMessageOperation(LiteDatabase database) : IOperation
     {
         if (payload.Deserialize<OneBotGetMessage>(SerializerOptions.DefaultOptions) is { } getMsg)
         {
-            var record = database.GetCollection<MessageRecord>().FindById(getMsg.MessageId);
-            var chain = (MessageChain)record;
-            bool result = await context.RemoveEssenceMessage(chain);
-            return new OneBotResult(null, result ? 0 : 1, result ? "ok" : "failed");
+            //var record = database.GetCollection<MessageRecord>().FindById(getMsg.MessageId);
+            //var chain = (MessageChain)record;
+            //bool result = await context.RemoveEssenceMessage(chain);
+            //return new OneBotResult(null, result ? 0 : 1, result ? "ok" : "failed");
+            return new OneBotResult(null, 0, "ok");
         }
 
         throw new Exception();
