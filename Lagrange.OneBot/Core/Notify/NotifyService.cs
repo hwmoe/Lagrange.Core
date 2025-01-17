@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Lagrange.OneBot.Core.Notify;
 
-public sealed class NotifyService(BotContext bot, ILogger<NotifyService> logger, LagrangeWebSvcCollection service, LiteDatabase database)
+public sealed class NotifyService(BotContext bot, ILogger<NotifyService> logger, LagrangeWebSvcCollection service)
 {
     public void RegisterEvents()
     {
