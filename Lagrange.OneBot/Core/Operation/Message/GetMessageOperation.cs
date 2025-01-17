@@ -9,12 +9,12 @@ using Lagrange.OneBot.Core.Entity.Message;
 using Lagrange.OneBot.Core.Operation.Converters;
 using Lagrange.OneBot.Database;
 using Lagrange.OneBot.Message;
-using LiteDB;
+
 
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("get_msg")]
-public class GetMessageOperation(LiteDatabase database, MessageService service) : IOperation
+public class GetMessageOperation(MessageService service) : IOperation
 {
     public Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

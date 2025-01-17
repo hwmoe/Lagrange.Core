@@ -8,7 +8,7 @@ using Lagrange.OneBot.Core.Operation;
 using Lagrange.OneBot.Database;
 using Lagrange.OneBot.Message;
 using Lagrange.OneBot.Utility;
-using LiteDB;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

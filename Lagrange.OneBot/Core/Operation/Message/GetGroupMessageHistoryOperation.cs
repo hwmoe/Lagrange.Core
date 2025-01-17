@@ -8,12 +8,11 @@ using Lagrange.OneBot.Core.Entity.Message;
 using Lagrange.OneBot.Core.Operation.Converters;
 using Lagrange.OneBot.Database;
 using Lagrange.OneBot.Message;
-using LiteDB;
 
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("get_group_msg_history")]
-public class GetGroupMessageHistoryOperation(LiteDatabase database, MessageService message) : IOperation
+public class GetGroupMessageHistoryOperation(MessageService message) : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

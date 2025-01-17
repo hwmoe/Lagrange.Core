@@ -6,13 +6,13 @@ using Lagrange.Core.Common.Interface.Api;
 using Lagrange.OneBot.Core.Entity.Action;
 using Lagrange.OneBot.Core.Operation.Converters;
 using Lagrange.OneBot.Database;
-using LiteDB;
+
 
 namespace Lagrange.OneBot.Core.Operation.Generic;
 
 
 [Operation(".join_friend_emoji_chain")]
-public class FriendJoinEmojiChainOperation(LiteDatabase database) : IOperation
+public class FriendJoinEmojiChainOperation() : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

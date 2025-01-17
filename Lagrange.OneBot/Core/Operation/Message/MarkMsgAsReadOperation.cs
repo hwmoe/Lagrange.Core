@@ -6,12 +6,12 @@ using Lagrange.Core.Message;
 using Lagrange.OneBot.Core.Entity.Action;
 using Lagrange.OneBot.Core.Operation.Converters;
 using Lagrange.OneBot.Database;
-using LiteDB;
+
 
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("mark_msg_as_read")]
-internal class MarkMsgAsReadOperation(LiteDatabase database) : IOperation
+internal class MarkMsgAsReadOperation() : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

@@ -10,7 +10,6 @@ using Lagrange.OneBot.Core.Entity.Message;
 using Lagrange.OneBot.Core.Network;
 using Lagrange.OneBot.Database;
 using Lagrange.OneBot.Message.Entity;
-using LiteDB;
 using Microsoft.Extensions.Configuration;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -22,7 +21,7 @@ namespace Lagrange.OneBot.Message;
 public sealed class MessageService
 {
     private readonly LagrangeWebSvcCollection _service;
-    private readonly LiteDatabase _context;
+    //private readonly LiteDatabase _context;
     private readonly IConfiguration _config;
     private readonly Dictionary<Type, List<(string Type, SegmentBase Factory)>> _entityToFactory;
     private readonly bool _stringPost;
@@ -34,10 +33,10 @@ public sealed class MessageService
         Options = new JsonSerializerOptions { TypeInfoResolver = new DefaultJsonTypeInfoResolver { Modifiers = { ModifyTypeInfo } } };
     }
 
-    public MessageService(BotContext bot, LagrangeWebSvcCollection service, LiteDatabase context, IConfiguration config)
+    public MessageService(BotContext bot, LagrangeWebSvcCollection service, IConfiguration config)
     {
         _service = service;
-        _context = context;
+        //_context = context;
         _config = config;
         _stringPost = config.GetValue<bool>("Message:StringPost");
 
@@ -54,7 +53,7 @@ public sealed class MessageService
             if (attribute != null)
             {
                 var instance = (SegmentBase)type.CreateInstance(false);
-                instance.Database = _context;
+                //instance.Database = _context;
 
                 if (_entityToFactory.TryGetValue(attribute.Entity, out var factories)) factories.Add((attribute.Type, instance));
                 else _entityToFactory[attribute.Entity] = [(attribute.Type, instance)];

@@ -6,12 +6,12 @@ using Lagrange.OneBot.Core.Entity.Action;
 using Lagrange.OneBot.Core.Entity.Action.Response;
 using Lagrange.OneBot.Core.Operation.Converters;
 using Lagrange.OneBot.Database;
-using LiteDB;
+
 
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("send_msg")]
-public sealed class SendMessageOperation(MessageCommon common, LiteDatabase database) : IOperation
+public sealed class SendMessageOperation(MessageCommon common) : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

@@ -6,12 +6,12 @@ using Lagrange.Core.Message;
 using Lagrange.OneBot.Core.Entity.Action;
 using Lagrange.OneBot.Core.Operation.Converters;
 using Lagrange.OneBot.Database;
-using LiteDB;
+
 
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("delete_essence_msg")]
-public class DeleteEssenceMessageOperation(LiteDatabase database) : IOperation
+public class DeleteEssenceMessageOperation() : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

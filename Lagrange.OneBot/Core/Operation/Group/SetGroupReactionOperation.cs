@@ -6,12 +6,11 @@ using Lagrange.Core.Message;
 using Lagrange.OneBot.Core.Entity.Action;
 using Lagrange.OneBot.Core.Operation.Converters;
 using Lagrange.OneBot.Database;
-using LiteDB;
 
 namespace Lagrange.OneBot.Core.Operation.Group;
 
 [Operation("set_group_reaction")]
-public class SetGroupReactionOperation(LiteDatabase database) : IOperation
+public class SetGroupReactionOperation() : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {
