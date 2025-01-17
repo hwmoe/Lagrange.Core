@@ -37,7 +37,7 @@ public partial class ReplySegment : SegmentBase
 
     public override SegmentBase FromEntity(MessageChain chain, IMessageEntity entity)
     {
-        if (entity is not ForwardEntity forward || Database is null) throw new ArgumentException("The entity is not a forward entity.");
+        if (entity is not ForwardEntity forward) throw new ArgumentException("The entity is not a forward entity.");
 
         //var collection = Database.GetCollection<MessageRecord>();
 
