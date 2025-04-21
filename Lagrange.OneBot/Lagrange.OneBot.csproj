@@ -10,6 +10,7 @@
         <RepositoryUrl>https://github.com/LagrangeDev/Lagrange.Core</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+		<CETCompat>false</CETCompat>
     </PropertyGroup>
 
     <ItemGroup>

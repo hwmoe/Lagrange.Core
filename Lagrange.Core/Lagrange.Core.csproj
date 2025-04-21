@@ -17,6 +17,7 @@
         <IsPublishable>true</IsPublishable>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<CETCompat>false</CETCompat>
     </PropertyGroup>
 
     <ItemGroup>
