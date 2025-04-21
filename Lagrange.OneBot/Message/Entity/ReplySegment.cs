@@ -33,7 +33,7 @@ public partial class ReplySegment : SegmentBase
         //    var virtualElem = build.Body?.RichText?.Elems;
         //    if (virtualElem != null) reply.TargetChain.Elements.AddRange(virtualElem);
 
-        //    builder.Forward(reply.TargetChain);
+        //    builder.Forward(reply.TargetChain); 
         //}
     }
 
