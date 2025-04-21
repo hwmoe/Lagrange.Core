@@ -2,7 +2,6 @@ using Lagrange.Core.Common.Entity;
 using Lagrange.Core.Message;
 using MessagePack;
 using MessagePack.Resolvers;
-using Realms;
 using static Lagrange.Core.Message.MessageChain;
 
 namespace Lagrange.OneBot.Database;
@@ -26,7 +25,7 @@ namespace Lagrange.OneBot.Database;
 // MigrationCallback
 // Lagrange.OneBot/Extensions/HostApplicationBuilderExtension.cs#L92
 
-public partial class MessageRecord : IRealmObject
+public partial class MessageRecord
 {
     public static readonly MessagePackSerializerOptions OPTIONS = MessagePackSerializerOptions.Standard
         .WithResolver(CompositeResolver.Create(
@@ -34,32 +33,25 @@ public partial class MessageRecord : IRealmObject
             new MessageEntityResolver()
         ));
 
-    [PrimaryKey]
     public int Id { get; set; }
 
-    [MapTo(nameof(Type)), Indexed]
     public int TypeInt { get; set; }
     public MessageType Type { get => (MessageType)TypeInt; set => TypeInt = (int)value; }
 
-    [MapTo(nameof(Sequence)), Indexed]
     public long SequenceLong { get; set; }
     public ulong Sequence { get => (ulong)SequenceLong; set => SequenceLong = (long)value; }
 
-    [MapTo(nameof(ClientSequence)), Indexed]
     public long ClientSequenceLong { get; set; }
     public ulong ClientSequence { get => (ulong)ClientSequenceLong; set => ClientSequenceLong = (long)value; }
 
-    [MapTo(nameof(MessageId)), Indexed]
     public long MessageIdLong { get; set; }
     public ulong MessageId { get => (ulong)MessageIdLong; set => MessageIdLong = (long)value; }
 
     public DateTimeOffset Time { get; set; }
 
-    [MapTo(nameof(FromUin)), Indexed]
     public long FromUinLong { get; set; }
     public ulong FromUin { get => (ulong)FromUinLong; set => FromUinLong = (long)value; }
 
-    [MapTo(nameof(ToUin)), Indexed]
     public long ToUinLong { get; set; }
     public ulong ToUin { get => (ulong)ToUinLong; set => ToUinLong = (long)value; }
 
