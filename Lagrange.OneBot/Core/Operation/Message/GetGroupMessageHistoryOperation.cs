@@ -13,7 +13,7 @@ using Lagrange.OneBot.Utility;
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("get_group_msg_history")]
-public class GetGroupMessageHistoryOperation(RealmHelper realm, MessageService message) : IOperation
+public class GetGroupMessageHistoryOperation(MessageService message) : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

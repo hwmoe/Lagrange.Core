@@ -22,31 +22,32 @@ public partial class ReplySegment : SegmentBase
 
     public override void Build(MessageBuilder builder, SegmentBase segment)
     {
-        if (segment is ReplySegment reply && Realm is not null)
-        {
-            var chain = Realm.Do<MessageChain>(realm => realm.All<MessageRecord>()
-                .First(record => record.Id == int.Parse(reply.MessageId)));
+        //if (segment is ReplySegment reply && Realm is not null)
+        //{
+        //    var chain = Realm.Do<MessageChain>(realm => realm.All<MessageRecord>()
+        //       .First(record => record.Id == int.Parse(reply.MessageId)));
 
-            reply.TargetChain ??= chain;
+        //    reply.TargetChain ??= chain;
 
-            var build = MessagePacker.Build(reply.TargetChain, "");
-            var virtualElem = build.Body?.RichText?.Elems;
-            if (virtualElem != null) reply.TargetChain.Elements.AddRange(virtualElem);
+        //    var build = MessagePacker.Build(reply.TargetChain, "");
+        //    var virtualElem = build.Body?.RichText?.Elems;
+        //    if (virtualElem != null) reply.TargetChain.Elements.AddRange(virtualElem);
 
-            builder.Forward(reply.TargetChain);
-        }
+        //    builder.Forward(reply.TargetChain);
+        //}
     }
 
     public override SegmentBase FromEntity(MessageChain chain, IMessageEntity entity)
     {
-        if (entity is not ForwardEntity forward || Realm is null) throw new ArgumentException("The entity is not a forward entity.");
+        //if (entity is not ForwardEntity forward || Realm is null) throw new ArgumentException("The entity is not a forward entity.");
 
-        var id = Realm.Do(realm => realm.All<MessageRecord>()
-            .FirstOrDefault(record => record.Id == MessageRecord.CalcMessageHash(forward.MessageId, forward.Sequence))?
-            .Id);
+        //var id = Realm.Do(realm => realm.All<MessageRecord>()
+        //    .FirstOrDefault(record => record.Id == MessageRecord.CalcMessageHash(forward.MessageId, forward.Sequence))?
+        //    .Id);
 
-        return !id.HasValue
-            ? new ReplySegment { MessageId = 0.ToString() }
-            : new ReplySegment { MessageId = id.Value.ToString() };
+        //return !id.HasValue
+        //    ? new ReplySegment { MessageId = 0.ToString() }
+        //    : new ReplySegment { MessageId = id.Value.ToString() };
+        return new ReplySegment { MessageId = 0.ToString() };
     }
 }

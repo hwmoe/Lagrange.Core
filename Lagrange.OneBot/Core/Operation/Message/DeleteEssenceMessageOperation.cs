@@ -11,7 +11,7 @@ using Lagrange.OneBot.Utility;
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("delete_essence_msg")]
-public class DeleteEssenceMessageOperation(RealmHelper realm) : IOperation
+public class DeleteEssenceMessageOperation() : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

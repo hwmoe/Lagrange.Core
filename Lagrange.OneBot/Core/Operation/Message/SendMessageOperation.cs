@@ -14,7 +14,7 @@ using static Lagrange.Core.Message.MessageChain;
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("send_msg")]
-public sealed class SendMessageOperation(MessageCommon common, RealmHelper realm) : IOperation
+public sealed class SendMessageOperation(MessageCommon common) : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

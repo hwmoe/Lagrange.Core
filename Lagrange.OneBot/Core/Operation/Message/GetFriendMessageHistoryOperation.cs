@@ -14,7 +14,7 @@ using Lagrange.OneBot.Utility;
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("get_friend_msg_history")]
-public class GetFriendMessageHistoryOperation(RealmHelper realm, MessageService message) : IOperation
+public class GetFriendMessageHistoryOperation(MessageService message) : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

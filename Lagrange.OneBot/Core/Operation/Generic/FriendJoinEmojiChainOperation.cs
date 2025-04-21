@@ -11,7 +11,7 @@ namespace Lagrange.OneBot.Core.Operation.Generic;
 
 
 [Operation(".join_friend_emoji_chain")]
-public class FriendJoinEmojiChainOperation(RealmHelper realm) : IOperation
+public class FriendJoinEmojiChainOperation() : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

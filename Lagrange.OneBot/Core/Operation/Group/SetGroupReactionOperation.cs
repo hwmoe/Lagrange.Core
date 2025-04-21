@@ -10,7 +10,7 @@ using Lagrange.OneBot.Utility;
 namespace Lagrange.OneBot.Core.Operation.Group;
 
 [Operation("set_group_reaction")]
-public class SetGroupReactionOperation(RealmHelper realm) : IOperation
+public class SetGroupReactionOperation() : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

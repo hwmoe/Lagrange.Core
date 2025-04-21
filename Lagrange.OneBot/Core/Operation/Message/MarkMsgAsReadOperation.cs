@@ -11,7 +11,7 @@ using Lagrange.OneBot.Utility;
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("mark_msg_as_read")]
-internal class MarkMsgAsReadOperation(RealmHelper realm) : IOperation
+internal class MarkMsgAsReadOperation() : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

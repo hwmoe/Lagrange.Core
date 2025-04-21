@@ -14,7 +14,7 @@ using Lagrange.OneBot.Utility;
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("get_msg")]
-public class GetMessageOperation(RealmHelper realm, MessageService service) : IOperation
+public class GetMessageOperation(MessageService service) : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {

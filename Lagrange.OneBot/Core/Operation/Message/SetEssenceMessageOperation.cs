@@ -11,7 +11,7 @@ using Lagrange.OneBot.Utility;
 namespace Lagrange.OneBot.Core.Operation.Message;
 
 [Operation("set_essence_msg")]
-public class SetEssenceMessageOperation(RealmHelper realm) : IOperation
+public class SetEssenceMessageOperation() : IOperation
 {
     public async Task<OneBotResult> HandleOperation(BotContext context, JsonNode? payload)
     {
