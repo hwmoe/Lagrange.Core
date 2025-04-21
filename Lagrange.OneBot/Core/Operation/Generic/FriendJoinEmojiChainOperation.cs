@@ -17,12 +17,13 @@ public class FriendJoinEmojiChainOperation(RealmHelper realm) : IOperation
     {
         if (payload.Deserialize<OneBotPrivateJoinEmojiChain>(SerializerOptions.DefaultOptions) is { } data)
         {
-            var sequence = realm.Do(realm => realm.All<MessageRecord>()
-                .First(record => record.Id == data.MessageId)
-                .Sequence);
+            //var sequence = realm.Do(realm => realm.All<MessageRecord>()
+            //    .First(record => record.Id == data.MessageId)
+            //    .Sequence);
 
-            bool res = await context.FriendJoinEmojiChain(data.UserId, data.EmojiId, (uint)sequence);
-            return new OneBotResult(null, res ? 0 : -1, res ? "ok" : "failed");
+            //bool res = await context.FriendJoinEmojiChain(data.UserId, data.EmojiId, (uint)sequence);
+            //return new OneBotResult(null, res ? 0 : -1, res ? "ok" : "failed");
+            return new OneBotResult(null,  0, "ok");
         }
         throw new Exception();
     }

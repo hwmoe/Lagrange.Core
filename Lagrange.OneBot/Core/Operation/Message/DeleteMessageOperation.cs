@@ -17,16 +17,17 @@ public class DeleteMessageOperation(RealmHelper realm) : IOperation
     {
         if (payload.Deserialize<OneBotGetMessage>(SerializerOptions.DefaultOptions) is { } getMsg)
         {
-            var chain = realm.Do<MessageChain>(realm => realm.All<MessageRecord>()
-                .First(record => record.Id == getMsg.MessageId));
+            //var chain = realm.Do<MessageChain>(realm => realm.All<MessageRecord>()
+            //    .First(record => record.Id == getMsg.MessageId));
 
-            if (chain.Type switch
-            {
-                MessageChain.MessageType.Group => await context.RecallGroupMessage(chain),
-                MessageChain.MessageType.Temp => throw new NotSupportedException(),
-                MessageChain.MessageType.Friend => await context.RecallFriendMessage(chain),
-                _ => throw new NotImplementedException(),
-            }) return new OneBotResult(null, 0, "ok");
+            //if (chain.Type switch
+            //{
+            //    MessageChain.MessageType.Group => await context.RecallGroupMessage(chain),
+            //    MessageChain.MessageType.Temp => throw new NotSupportedException(),
+            //    MessageChain.MessageType.Friend => await context.RecallFriendMessage(chain),
+            //    _ => throw new NotImplementedException(),
+            //}) return new OneBotResult(null, 0, "ok");
+            return new OneBotResult(null, 0, "ok");
         }
 
         throw new Exception();

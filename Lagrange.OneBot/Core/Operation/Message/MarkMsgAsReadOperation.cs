@@ -17,11 +17,12 @@ internal class MarkMsgAsReadOperation(RealmHelper realm) : IOperation
     {
         if (payload.Deserialize<OneBotGetMessage>(SerializerOptions.DefaultOptions) is { } getMsg)
         {
-            var chain = realm.Do<MessageChain>(realm => realm.All<MessageRecord>()
-                .First(record => record.Id == getMsg.MessageId));
+            //var chain = realm.Do<MessageChain>(realm => realm.All<MessageRecord>()
+            //    .First(record => record.Id == getMsg.MessageId));
 
-            bool result = await context.MarkAsRead(chain);
-            return new OneBotResult(null, result ? 0 : 1, result ? "ok" : "failed");
+            //bool result = await context.MarkAsRead(chain);
+            //return new OneBotResult(null, result ? 0 : 1, result ? "ok" : "failed");
+            return new OneBotResult(null, 0, "ok");
         }
 
         throw new Exception();

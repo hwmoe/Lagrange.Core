@@ -20,36 +20,36 @@ public class GetMessageOperation(RealmHelper realm, MessageService service) : IO
     {
         if (payload.Deserialize<OneBotGetMessage>(SerializerOptions.DefaultOptions) is { } getMsg)
         {
-            var chain = realm.Do<MessageChain>(realm => realm.All<MessageRecord>().First(record => record.Id == getMsg.MessageId));
+            //var chain = realm.Do<MessageChain>(realm => realm.All<MessageRecord>().First(record => record.Id == getMsg.MessageId));
 
-            OneBotSender sender = chain.Type switch
-            {
-                MessageChain.MessageType.Group => new(
-                    chain.FriendUin,
-                    (await context.FetchMembers((uint)chain.GroupUin!))
-                        .First(member => member.Uin == chain.FriendUin)
-                        .MemberName
-                ),
-                MessageChain.MessageType.Temp => new(chain.FriendUin, string.Empty),
-                MessageChain.MessageType.Friend => new(
-                    chain.FriendUin,
-                    (await context.FetchFriends())
-                        .First(friend => friend.Uin == chain.FriendUin)
-                        .Nickname
-                ),
-                _ => throw new NotImplementedException(),
-            };
+            //OneBotSender sender = chain.Type switch
+            //{
+            //    MessageChain.MessageType.Group => new(
+            //        chain.FriendUin,
+            //        (await context.FetchMembers((uint)chain.GroupUin!))
+            //            .First(member => member.Uin == chain.FriendUin)
+            //            .MemberName
+            //    ),
+            //    MessageChain.MessageType.Temp => new(chain.FriendUin, string.Empty),
+            //    MessageChain.MessageType.Friend => new(
+            //        chain.FriendUin,
+            //        (await context.FetchFriends())
+            //            .First(friend => friend.Uin == chain.FriendUin)
+            //            .Nickname
+            //    ),
+            //    _ => throw new NotImplementedException(),
+            //};
 
-            var elements = service.Convert(chain);
-            var response = new OneBotGetMessageResponse(
-                chain.Time,
-                chain.Type == MessageChain.MessageType.Group ? "group" : "private",
-                MessageRecord.CalcMessageHash(chain.MessageId, chain.Sequence),
-                sender,
-                elements
-            );
+            //var elements = service.Convert(chain);
+            //var response = new OneBotGetMessageResponse(
+            //    chain.Time,
+            //    chain.Type == MessageChain.MessageType.Group ? "group" : "private",
+            //    MessageRecord.CalcMessageHash(chain.MessageId, chain.Sequence),
+            //    sender,
+            //    elements
+            //);
 
-            return new OneBotResult(response, 0, "ok");
+            return new OneBotResult(null, 0, "ok");
         }
 
         throw new Exception();

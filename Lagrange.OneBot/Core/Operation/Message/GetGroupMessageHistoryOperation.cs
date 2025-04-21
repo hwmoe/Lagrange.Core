@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using Lagrange.Core;
 using Lagrange.Core.Common.Interface.Api;
+using Lagrange.Core.Internal.Packets.Message;
 using Lagrange.OneBot.Core.Entity.Action;
 using Lagrange.OneBot.Core.Entity.Message;
 using Lagrange.OneBot.Core.Operation.Converters;
@@ -18,24 +19,25 @@ public class GetGroupMessageHistoryOperation(RealmHelper realm, MessageService m
     {
         if (payload.Deserialize<OneBotGroupMsgHistory>(SerializerOptions.DefaultOptions) is { } history)
         {
-            var sequence = realm.Do(realm => history.MessageId == 0
-                ? realm.All<MessageRecord>()
-                    .Where(record => record.ToUinLong == history.GroupId)
-                    .OrderByDescending(x => x.Time)
-                    .First()
-                    .Sequence
-                : realm.All<MessageRecord>()
-                    .First(record => record.Id == history.MessageId)
-                    .Sequence);
+            //var sequence = realm.Do(realm => history.MessageId == 0
+            //    ? realm.All<MessageRecord>()
+            //        .Where(record => record.ToUinLong == history.GroupId)
+            //        .OrderByDescending(x => x.Time)
+            //        .First()
+            //        .Sequence
+            //    : realm.All<MessageRecord>()
+            //        .First(record => record.Id == history.MessageId)
+            //        .Sequence);
 
-            uint start = (uint)(sequence - (ulong)history.Count + 1);
-            if (await context.GetGroupMessage(history.GroupId, start, (uint)sequence) is { } results)
-            {
-                var messages = results
-                    .Select(x => message.ConvertToGroupMsg(context.BotUin, x))
-                    .ToList();
-                return new OneBotResult(new OneBotGroupMsgHistoryResponse(messages), 0, "ok");
-            }
+            //uint start = (uint)(sequence - (ulong)history.Count + 1);
+            //if (await context.GetGroupMessage(history.GroupId, start, (uint)sequence) is { } results)
+            //{
+            //    var messages = results
+            //        .Select(x => message.ConvertToGroupMsg(context.BotUin, x))
+            //        .ToList();
+            //    return new OneBotResult(new OneBotGroupMsgHistoryResponse(messages), 0, "ok");
+            //}
+            return new OneBotResult(new OneBotGroupMsgHistoryResponse([]), 0, "ok");
         }
 
         throw new Exception();

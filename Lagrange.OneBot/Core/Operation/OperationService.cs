@@ -33,7 +33,7 @@ public sealed class OperationService
 
         var service = new ServiceCollection();
         service.AddSingleton(bot);
-        service.AddSingleton(realm);
+        //service.AddSingleton(realm);
         service.AddSingleton(logger);
         service.AddSingleton(message);
         service.AddSingleton<MessageCommon>();

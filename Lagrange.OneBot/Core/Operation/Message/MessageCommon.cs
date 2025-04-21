@@ -32,7 +32,7 @@ public partial class MessageCommon
             if (type.GetCustomAttribute<SegmentSubscriberAttribute>() is { } attribute)
             {
                 var instance = (SegmentBase)type.CreateInstance(false);
-                instance.Realm = realm;
+                //instance.Realm = realm;
                 _typeToSegment[attribute.SendType] = instance;
             }
         }

@@ -164,24 +164,24 @@ public sealed class NotifyService(BotContext bot, ILogger<NotifyService> logger,
         {
             logger.LogInformation(@event.ToString());
 
-            var sequence = realm.Do(realm => realm.All<MessageRecord>()
-                .FirstOrDefault(record => record.TypeInt == (int)MessageType.Friend
-                    && record.FromUinLong == @event.FriendUin
-                    && record.ClientSequenceLong == @event.ClientSequence
-                    && record.MessageIdLong == (0x01000000L << 32 | @event.Random)
-                )?
-                .Sequence);
-            if (sequence == null) {
-                logger.LogWarning("Unable to find the {} message sent by {}", @event.ClientSequence, @event.FriendUin);
-                return;
-            }
+            //var sequence = realm.Do(realm => realm.All<MessageRecord>()
+            //    .FirstOrDefault(record => record.TypeInt == (int)MessageType.Friend
+            //        && record.FromUinLong == @event.FriendUin
+            //        && record.ClientSequenceLong == @event.ClientSequence
+            //        && record.MessageIdLong == (0x01000000L << 32 | @event.Random)
+            //    )?
+            //    .Sequence);
+            //if (sequence == null) {
+            //    logger.LogWarning("Unable to find the {} message sent by {}", @event.ClientSequence, @event.FriendUin);
+            //    return;
+            //}
 
-            await service.SendJsonAsync(new OneBotFriendRecall(bot.BotUin)
-            {
-                UserId = @event.FriendUin,
-                MessageId = MessageRecord.CalcMessageHash(@event.Random, (uint)sequence),
-                Tip = @event.Tip
-            });
+            //await service.SendJsonAsync(new OneBotFriendRecall(bot.BotUin)
+            //{
+            //    UserId = @event.FriendUin,
+            //    MessageId = MessageRecord.CalcMessageHash(@event.Random, (uint)sequence),
+            //    Tip = @event.Tip
+            //});
         };
 
         bot.Invoker.OnFriendPokeEvent += async (_, @event) =>

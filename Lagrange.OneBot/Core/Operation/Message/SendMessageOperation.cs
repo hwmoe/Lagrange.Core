@@ -35,18 +35,18 @@ public sealed class SendMessageOperation(MessageCommon common, RealmHelper realm
 
         if (!chain.IsGroup)
         {
-            realm.Do(realm => realm.Write(() => realm.Add(new MessageRecord
-            {
-                Id = obid,
-                Type = MessageType.Friend,
-                Sequence = result.Sequence ?? 0,
-                ClientSequence = result.ClientSequence,
-                MessageId = result.MessageId,
-                Time = DateTimeOffset.FromUnixTimeSeconds(result.Timestamp),
-                FromUin = context.BotUin,
-                ToUin = chain.FriendUin,
-                Entities = MessagePackSerializer.Serialize<List<IMessageEntity>>(chain, MessageRecord.OPTIONS)
-            })));
+            //realm.Do(realm => realm.Write(() => realm.Add(new MessageRecord
+            //{
+            //    Id = obid,
+            //    Type = MessageType.Friend,
+            //    Sequence = result.Sequence ?? 0,
+            //    ClientSequence = result.ClientSequence,
+            //    MessageId = result.MessageId,
+            //    Time = DateTimeOffset.FromUnixTimeSeconds(result.Timestamp),
+            //    FromUin = context.BotUin,
+            //    ToUin = chain.FriendUin,
+            //    Entities = MessagePackSerializer.Serialize<List<IMessageEntity>>(chain, MessageRecord.OPTIONS)
+            //})));
         }
 
         return new OneBotResult(new OneBotMessageResponse(obid), 0, "ok");
