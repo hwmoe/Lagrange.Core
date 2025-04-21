@@ -12,7 +12,7 @@ using static Lagrange.Core.Message.MessageChain;
 
 namespace Lagrange.OneBot.Core.Notify;
 
-public sealed class NotifyService(BotContext bot, ILogger<NotifyService> logger, LagrangeWebSvcCollection service, RealmHelper realm)
+public sealed class NotifyService(BotContext bot, ILogger<NotifyService> logger, LagrangeWebSvcCollection service)
 {
     public void RegisterEvents()
     {
@@ -229,32 +229,32 @@ public sealed class NotifyService(BotContext bot, ILogger<NotifyService> logger,
         {
             logger.LogInformation(@event.ToString());
 
-            var id = realm.Do(realm => realm.All<MessageRecord>()
-                .FirstOrDefault(record => record.TypeInt == (int)MessageType.Group
-                    && record.ToUinLong == @event.TargetGroupUin
-                    && record.SequenceLong == @event.TargetSequence)?
-                .Id);
+            //var id = realm.Do(realm => realm.All<MessageRecord>()
+            //    .FirstOrDefault(record => record.TypeInt == (int)MessageType.Group
+            //        && record.ToUinLong == @event.TargetGroupUin
+            //        && record.SequenceLong == @event.TargetSequence)?
+            //    .Id);
 
-            if (id == null)
-            {
-                logger.LogInformation(
-                    "Unable to find the corresponding message using GroupUin: {} and Sequence: {}",
-                    @event.TargetGroupUin,
-                    @event.TargetSequence
-                );
+            //if (id == null)
+            //{
+            //    logger.LogInformation(
+            //        "Unable to find the corresponding message using GroupUin: {} and Sequence: {}",
+            //        @event.TargetGroupUin,
+            //        @event.TargetSequence
+            //    );
 
-                return;
-            }
+            //    return;
+            //}
 
-            await service.SendJsonAsync(new OneBotGroupReaction(
-                bot.BotUin,
-                @event.TargetGroupUin,
-                id.Value,
-                @event.OperatorUin,
-                @event.IsAdd ? "add" : "remove",
-                @event.Code,
-                @event.Count
-            ));
+            //await service.SendJsonAsync(new OneBotGroupReaction(
+            //    bot.BotUin,
+            //    @event.TargetGroupUin,
+            //    id.Value,
+            //    @event.OperatorUin,
+            //    @event.IsAdd ? "add" : "remove",
+            //    @event.Code,
+            //    @event.Count
+            //));
         };
 
         bot.Invoker.OnGroupNameChangeEvent += async (bot, @event) =>

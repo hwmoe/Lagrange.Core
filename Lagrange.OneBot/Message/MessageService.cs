@@ -24,7 +24,7 @@ namespace Lagrange.OneBot.Message;
 public sealed class MessageService
 {
     private readonly LagrangeWebSvcCollection _service;
-    private readonly RealmHelper _realm;
+    //private readonly RealmHelper _realm;
     private readonly IConfiguration _config;
     private readonly Dictionary<Type, List<(string Type, SegmentBase Factory)>> _entityToFactory;
     private readonly bool _stringPost;
@@ -36,10 +36,10 @@ public sealed class MessageService
         Options = new JsonSerializerOptions { TypeInfoResolver = new DefaultJsonTypeInfoResolver { Modifiers = { ModifyTypeInfo } } };
     }
 
-    public MessageService(BotContext bot, LagrangeWebSvcCollection service, RealmHelper realm, IConfiguration config)
+    public MessageService(BotContext bot, LagrangeWebSvcCollection service, IConfiguration config)
     {
         _service = service;
-        _realm = realm;
+        //_realm = realm;
         _config = config;
         _stringPost = config.GetValue<bool>("Message:StringPost");
 
@@ -56,7 +56,7 @@ public sealed class MessageService
             if (attribute != null)
             {
                 var instance = (SegmentBase)type.CreateInstance(false);
-                instance.Realm = _realm;
+                //instance.Realm = _realm;
 
                 if (_entityToFactory.TryGetValue(attribute.Entity, out var factories)) factories.Add((attribute.Type, instance));
                 else _entityToFactory[attribute.Entity] = [(attribute.Type, instance)];
@@ -66,7 +66,7 @@ public sealed class MessageService
 
     private void OnFriendMessageReceived(BotContext bot, FriendMessageEvent e)
     {
-        _realm.Do(realm => realm.Write(() => realm.Add<MessageRecord>(e.Chain)));
+        //_realm.Do(realm => realm.Write(() => realm.Add<MessageRecord>(e.Chain)));
 
         if (_config.GetValue<bool>("Message:IgnoreSelf") && e.Chain.FriendUin == bot.BotUin) return; // ignore self message
 
@@ -102,7 +102,7 @@ public sealed class MessageService
 
     private void OnGroupMessageReceived(BotContext bot, GroupMessageEvent e)
     {
-        _realm.Do(realm => realm.Write(() => realm.Add<MessageRecord>(e.Chain)));
+        //_realm.Do(realm => realm.Write(() => realm.Add<MessageRecord>(e.Chain)));
 
         if (_config.GetValue<bool>("Message:IgnoreSelf") && e.Chain.FriendUin == bot.BotUin) return; // ignore self message
 
@@ -124,7 +124,7 @@ public sealed class MessageService
     private void OnTempMessageReceived(BotContext bot, TempMessageEvent e)
     {
         var record = (MessageRecord)e.Chain;
-        _realm.Do(realm => realm.Write(() => realm.Add(record)));
+        //_realm.Do(realm => realm.Write(() => realm.Add(record)));
 
         var segments = Convert(e.Chain);
         var request = new OneBotPrivateMsg(bot.BotUin, new OneBotSender(e.Chain.FriendUin, e.Chain.FriendInfo?.Nickname ?? string.Empty), "group", ((DateTimeOffset)e.Chain.Time).ToUnixTimeSeconds())

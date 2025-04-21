@@ -19,7 +19,7 @@ public sealed class OperationService
     private readonly Dictionary<string, Type> _operations;
     private readonly ServiceProvider _service;
 
-    public OperationService(BotContext bot, ILogger<OperationService> logger, RealmHelper realm, MessageService message)
+    public OperationService(BotContext bot, ILogger<OperationService> logger, MessageService message)
     {
         _bot = bot;
         _logger = logger;
