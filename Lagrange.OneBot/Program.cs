@@ -56,7 +56,7 @@ internal abstract class Program
 
         Host.CreateApplicationBuilder()
             .ConfigureLagrangeCore()
-            .ConfigureOneBot()
+            .ConfigureOneBot() 
             .Build()
             .InitializeMusicSigner() // Very ugly (
             .Run();
